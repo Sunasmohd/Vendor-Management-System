@@ -22,7 +22,7 @@ User Management
           }
 2.  Listing all users
     Endpoint: GET /auth/users/
-    Description: Only list all users if admin else it list only the specific token owned user.
+    Description: Only list all users if admin else it list only current user.
     Request:
       Method: GET
     Response:
@@ -32,12 +32,12 @@ User Management
             {
               "id": 1,
               "username": "your_un"
-            }, -- if just a user who owned current auth_token that single record will retrieve
+            }, -- if just a user the current users record will retrieve
             {
               "id": 2,
               "username": "your_un2"
             } 
-            ... if admin only more than one user retrieve
+            ... if admin will retrieve all users
           ]
 3.  Retrieve auth_token owned user details
     Endpoint: GET /auth/users/me/
