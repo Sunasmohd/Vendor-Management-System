@@ -20,6 +20,7 @@ class PurchaseModelViewSet(ModelViewSet):
   
   
 class HistoricalPerformanceModelViewSet(ModelViewSet):
+  http_method_names = ('get','post','delete','head','options')
   
   def get_queryset(self):
      return HistoricalPerformance.objects.filter(vendor_id=self.kwargs.get('vendors_pk'))
