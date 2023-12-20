@@ -71,6 +71,14 @@ Token Management
           {
             "auth_token": "s56gfgfdgdfdfsdw3434wewsdsds"
           }
+2.  Removing a auth_token
+    Headers: Set auth_token
+    Endpoint: POST /auth/token/logout/
+    Description: Destroys current auth_token
+    Request:
+      Method: POST
+    Response:
+      Status Code: 204 No Content
 
 
 Vendor Profile Management
@@ -172,7 +180,31 @@ Vendor Profile Management
             "average_response_time": 2.5,
             "fulfillment_rate": 95.0
           }
-5.  Delete a vendor
+5.  Partial Update a vendor's details
+    Headers: Set auth_token
+    Endpoint: PATCH /api/vendors/{vendor_id}/
+    Description: Update a specific part of vendor's details.
+    Request:
+      Method: PATCH
+      Body:
+          {
+            "name": "Mathew22",
+          }
+    Response:
+      Status Code: 200 OK
+      Body:
+          {
+            "id": 1,
+            "name": "Mathew22",
+            "contact_details": "9675645443",
+            "address": "Gimy,New York,5466",
+            "vendor_code": "456H",
+            "on_time_delivery_rate": 80.0,
+            "quality_rating_avg": 4.5,
+            "average_response_time": 2.5,
+            "fulfillment_rate": 95.0
+          }
+6.  Delete a vendor
     Headers: Set auth_token
     Endpoint: DELETE /api/vendors/{vendor_id}/
     Description: Delete a specific vendor.
@@ -195,7 +227,7 @@ Purchase Order Tracking
             "po_number": "346HVfd",
             "vendor": 1,
             "order_date": "2023-12-01T12:00:00Z",
-            "expected_delivery_date": "2023-12-15T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
             "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
             "quantity": 100,
             "status": "PN",
@@ -209,8 +241,7 @@ Purchase Order Tracking
             "po_number": "346HVfd",
             "vendor": 1,
             "order_date": "2023-12-01T12:00:00Z",
-            "actual_delivery_date": null,
-            "expected_delivery_date": "2023-12-15T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
             "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
             "quantity": 100,
             "status": "PN",
@@ -233,8 +264,7 @@ Purchase Order Tracking
               "po_number": "346HVfd",
               "vendor": 1,
               "order_date": "2023-12-01T12:00:00Z",
-              "actual_delivery_date": null,
-              "expected_delivery_date": "2023-12-15T12:00:00Z",
+              "delivery_date": "2023-12-15T12:00:00Z",
               "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
               "quantity": 100,
               "status": "PN",
@@ -262,8 +292,7 @@ Purchase Order Tracking
             "po_number": "346HVfd",
             "vendor": 1,
             "order_date": "2023-12-01T12:00:00Z",
-            "actual_delivery_date": null,
-            "expected_delivery_date": "2023-12-15T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
             "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
             "quantity": 100,
             "status": "PN",
@@ -287,8 +316,7 @@ Purchase Order Tracking
               "po_number": "346HVfd",
               "vendor": 1,
               "order_date": "2023-12-01T12:00:00Z",
-              "actual_delivery_date": "2023-12-13T12:00:00Z",
-              "expected_delivery_date": "2023-12-15T12:00:00Z",
+              "delivery_date": "2023-12-15T12:00:00Z",
               "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
               "quantity": 100,
               "status": "CM",
@@ -310,6 +338,41 @@ Purchase Order Tracking
       Method: PUT
       Body:
           {
+            "id": 1,
+            "po_number": "346HVfd",
+            "vendor": 1,
+            "order_date": "2023-12-01T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
+            "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
+            "quantity": 100,
+            "status": "CM",
+            "quality_rating": 5.5
+            "issue_date": "2023-12-01T12:00:00Z",
+          }
+    Response:
+      Status Code: 200 OK
+      Body:
+          {
+            "id": 1,
+            "po_number": "346HVfd",
+            "vendor": 1,
+            "order_date": "2023-12-01T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
+            "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
+            "quantity": 100,
+            "status": "CM",
+            "quality_rating": 5.5
+            "issue_date": "2023-12-01T12:00:00Z",
+            "acknowledgment_date": null,
+          }
+6.  Partial Update a purchase order
+    Headers: Set auth_token
+    Endpoint: PATCH /api/purchase_orders/{po_id}/
+    Description: Update a part of a specific purchase order.
+    Request:
+      Method: PATCH
+      Body:
+          {
             "status": "CM",
             "quality_rating": 4.5
           }
@@ -321,8 +384,7 @@ Purchase Order Tracking
             "po_number": "346HVfd",
             "vendor": 1,
             "order_date": "2023-12-01T12:00:00Z",
-            "actual_delivery_date": "2023-12-13T12:00:00Z",
-            "expected_delivery_date": "2023-12-15T12:00:00Z",
+            "delivery_date": "2023-12-15T12:00:00Z",
             "items": {"tshirt": "5 Sleeve", "shirt": "Full Sleeve"},
             "quantity": 100,
             "status": "CM",
@@ -330,7 +392,7 @@ Purchase Order Tracking
             "issue_date": "2023-12-01T12:00:00Z",
             "acknowledgment_date": null,
           }
-6.  Delete a purchase order
+7.  Delete a purchase order
     Headers: Set auth_token
     Endpoint: DELETE /api/purchase_orders/{po_id}/
     Description: Delete a specific purchase order.
@@ -382,7 +444,7 @@ Vendor Performance Evaluation
           }
 3.  Delete a vendor's performance metrics
     Headers: Set auth_token
-    Endpoint: POST /api/vendors/{vendor_id}/performance/
+    Endpoint: DELETE /api/vendors/{vendor_id}/performance/{performance_id}/
     Description: Delete a performance metrics for a specific vendor.
     Request:
       Method: DELETE

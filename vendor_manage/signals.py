@@ -48,7 +48,7 @@ def get_quality_rating_average(sender,instance,**kwargs):
 def get_average_response_time(sender,instance,**kwargs):
     if instance.acknowledgment_date is not None:
       purchase_orders = Purchase.objects.filter(vendor_id=instance.vendor_id)
-      print('ackno')
+
       response_time = [(
         (po.acknowledgment_date - po.issue_date).total_seconds() /60 /60
         ) 
