@@ -1,8 +1,54 @@
 API Documentation
 =================
 
+Getting & Setting Auth Token In Headers
+---------------------------------------
+*Using requests library in python
+
+**Getting the auth_token
+
+  * To access every endpoint you need an auth_token
+
+  * You need to register first
+
+'''
+    import requests
+
+    # Replace it with your original username and password
+    login_details = {'username':'your_username','password':'your_password'}
+    response = requests.post('http://127.0.0.1:8000/auth/users/',login_details)
+    data = response.json()
+
+    # You can confirm the creation of your account
+    if 'id' in data:
+      print(data['id'])
+    # You can catch any validation errors and fix it
+    else:
+      print(data) 
+'''
+
+  * After getting the token add it to the headers of the request
+
+**Setting the auth_token
+
+'''
+    import requests
+
+    # Replace it with your original username and password
+    login_details = {'username':'your_username','password':'your_password'}
+    response = requests.post('http://127.0.0.1:8000/auth/token/login/',login_details)
+    data = response.json()
+
+    # If no error occured it will successfully access all the vendors records
+    if 'auth_token' in data:
+      headers = {'Authorization' : f'Token {data["auth_token"]}'}
+      response = requests.get('http://127.0.0.1:8000/api/vendors/',headers=headers)
+      data = response.json()
+'''
+
+
 User Management
---------------------------------------
+---------------
 1.  Registering a new user
     Endpoint: POST /auth/users/
     Description: Register a new user
@@ -21,6 +67,7 @@ User Management
             "username":"your_un"
           }
 2.  Listing all users
+    Headers: Set auth_token
     Endpoint: GET /auth/users/
     Description: Only list all users if admin else it list only current user.
     Request:
@@ -40,6 +87,7 @@ User Management
             ... if admin will retrieve all users
           ]
 3.  Retrieve auth_token owned user details
+    Headers: Set auth_token
     Endpoint: GET /auth/users/me/
     Description: Retrieve auth_token owned user details.
     Request:
